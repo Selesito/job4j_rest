@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.job4j.auth.domain.Person;
 import ru.job4j.auth.repository.PersonRepository;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -20,10 +16,8 @@ public class PersonController {
     }
 
     @GetMapping("/")
-    public List<Person> findAll() {
-        return StreamSupport.stream(
-                this.persons.findAll().spliterator(), false
-        ).collect(Collectors.toList());
+    public Iterable<Person> findAll() {
+        return this.persons.findAll();
     }
 
     @GetMapping("/{id}")
